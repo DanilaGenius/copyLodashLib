@@ -362,7 +362,7 @@ const l = {
 		//
 	},
 
-	// sortedIndexBy(array, value, [iteratee=_.identity]) {
+	// sortedIndexBy(array, value, iteratee = l.identity) {
 	// 	//
 	// },
 
@@ -374,7 +374,7 @@ const l = {
 
 	// },
 
-	// sortedLastIndexBy(array, value, [iteratee=_.identity]) {
+	// sortedLastIndexBy(array, value, iteratee = l.identity) {
 	// 	//
 	// },
 
@@ -386,51 +386,100 @@ const l = {
 
 	// },
 
-	// sortedUniqBy(array, [iteratee]) {
+	// sortedUniqBy(array, iteratee) {
 
 	// },
 
-	// tail(array) {
+	tail(array) {
+		let result = [];
 
-	// },
+		array.forEach((elem, index) => {
+			if (index > 0) {
+				result.push(elem)
+			}
+		});
 
-	// take(array, [n=1]) {
+		return result
+	},
 
-	// },
+	take(array, n = 1) {
+		let result = [];
 
-	// takeRight(array, [n=1]) {
+		array.forEach((elem, index) => {
+			if (index < n) {
+				result.push(elem)
+			}
+		});
 
-	// },
+		return result
+	},
 
-	// takeRightWhile(array, [predicate=_.identity]) {
+	takeRight(array, n = 1) {
+		let result = []; 		// arr ( [1, 2, 3], 2 )  >>>  => [2, 3]
+		let index = array.length - 1 ;		// 2
+		let end = index - n; // 1
+		for (let i = index; i > end; i--) {
+			result.unshift(array[i])
+			if (array.length <= result.length) {
+				break ;
+			}
+		}
+
+		return result
+	},
+
+	// takeRightWhile(array, iteratee = l.identity) {
 	// 	//
 	// },
 
-	// takeWhile(array, [predicate=_.identity]) {
+	// takeWhile(array, iteratee = l.identity) {
 	// 	//
 	// },
 
-	// union(...arrays) {
+	union(...arrays) {
+		let result = [];
+		let array = [];
 
-	// },
+		for (let arr of arrays) {
+			for (let elem of arr) {
+				array.push(elem)
+			}
+		}
+		
+		array.forEach( elem => {
+			if (!result.includes(elem)) {
+				result.push(elem)
+			}
+		})
 
-	// unionBy([arrays], [iteratee=_.identity]) {
+		return result
+	},
+
+	// unionBy(arrays, iteratee = l.identity) {
 	// 	//
 	// },
 
-	// unionWith([arrays], [comparator]) {
+	// unionWith(arrays, comparator) {
 
 	// },
 
-	// uniq(array) {
+	uniq(array) {
+		let result = [];
 
-	// },
+		array.forEach( elem => {
+			if (!result.includes(elem)) {
+				result.push(elem)
+			}
+		})
 
-	// uniqBy(array, [iteratee=_.identity]) {
+		return result
+	},
+
+	// uniqBy(array, iteratee = l.identity) {
 	// 	//
 	// },
 
-	// uniqWith(array, [comparator]) {
+	// uniqWith(array, comparator) {
 
 	// },
 
@@ -438,47 +487,54 @@ const l = {
 
 	// },
 
-	// unzipWith(array, [iteratee=_.identity]) {
+	// unzipWith(array, iteratee = l.identity ) {
 	// 	//
 	// },
 
-	// without(array, [values]) {
+	without(array, ...values) {
+		let result = [];
+
+				for (let a of array) {
+					if (array.includes(a) && !values.includes(a)) {
+						result.push(a)
+					}
+					
+				}
+				
+		return result
+	},
+
+	// xor(arrays) {
 
 	// },
 
-	// xor([arrays]) {
-
-	// },
-
-	// xorBy([arrays], [iteratee=_.identity]) {
+	// xorBy(arrays, iteratee = l.identity) {
 	// 	//
 	// },
 
-	// xorWith([arrays], [comparator]) {
+	// xorWith(arrays, comparator) {
 
 	// },
 
-	// zip([arrays]) {
+	// zip(...arrays) {
+	// 	let result = [];
+		
+	// 	return result
+	// },
+
+	// zipObject(props=[], values=[]) {
 
 	// },
 
-	// zipObject([props=[]], [values=[]]) {
+	// zipObjectDeep(props=[], values=[]) {
 
 	// },
 
-	// zipObjectDeep([props=[]], [values=[]]) {
-
-	// },
-
-	// zipWith([arrays], [iteratee=_.identity]) {
+	// zipWith(arrays, iteratee = l.identity) {
 	// 	//
 	// },
 
 };
 
-var array = [1, 2, 3, 4, 5];
-
- let arr = l.slice(array,2,4)
-
- console.log(arr)
- // [1,2,3]
+console.log(l.takeRight([1, 2, 3], 5) )
+// => [2, 1])
