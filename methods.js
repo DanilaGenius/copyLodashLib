@@ -1,6 +1,6 @@
 'use strict';
 
-let l = {
+let me = {
     hello(text) {
         console.log(text)
     }

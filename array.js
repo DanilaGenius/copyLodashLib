@@ -1,6 +1,6 @@
 'use strict';
 
-const l = {
+const a = {
 	chunk(array,size) {
 		let newArray = [];
 
@@ -37,13 +37,13 @@ const l = {
 		} )
 	},
 
-	differenceBy(array, values, predicate = l.identity) {
-		//
-	},
+	// differenceBy(array, values, predicate = l.identity) {
+	// 	//
+	// },
 
-	differenceWith(array, values, predicate = l.identity) {
-		//
-	},
+	// differenceWith(array, values, predicate = l.identity) {
+	// 	//
+	// },
 
 	drop(array, n = 1) {
 		let length = array.length,
@@ -59,13 +59,13 @@ const l = {
 		return result.slice(0, length - n)
 	},
 
-	dropRightWhile(array, predicate = l.identity) {
-		//
-	},
+	// dropRightWhile(array, predicate = l.identity) {
+	// 	//
+	// },
 
-	dropWhile(array, predicate = l.identity) {
-		//
-	},
+	// dropWhile(array, predicate = l.identity) {
+	// 	//
+	// },
 
 	fill(array, value, start = 0, end = array.length) {
 		let result = array,
@@ -78,13 +78,13 @@ const l = {
 		return result
 	},
 
-	findIndex(array, predicate = l.identity, fromIndex=0) {
-		//
-	},
+	// findIndex(array, predicate = l.identity, fromIndex=0) {
+	// 	//
+	// },
 
-	findLastIndex(array, predicate = _.identity, fromIndex=array.length-1) {
-		//
-	},
+	// findLastIndex(array, predicate = _.identity, fromIndex=array.length-1) {
+	// 	//
+	// },
 
 	head(array) {
 		return array[0]
@@ -201,14 +201,24 @@ const l = {
 			return result
 	},
 
-	// intersection(...arrays) {
-	// 	let result = [],
-	// 		lenght = arrays.length;
+	intersection(...arrays) {  // [2, 1], [2, 3]
+		let result = [];
 
-			
+		function includesArr(a,b) {    
+			let result = [];
+			a.forEach((elem,index,arr) => {
+				if (b.includes(elem) && arr.includes(elem) && !result.includes(elem)) {
+					result.push(elem)
+				}
+			})
+			return result
+		}
 
-	// 	return result
-	// },
+		result.push(...includesArr(arrays[0],arrays[1]))
+		return result			
+
+		return result
+	},
 
 	// intersectionBy(arrays, iteratee = l.identity) {
 	// 	//
@@ -357,34 +367,142 @@ const l = {
 
 		return result
 	},
+								//    0    2     4
+	sortedIndex(array, value) { // ([4, 5, 5, 5, 6], 5) ==> 1
+		let result = -1;
+		let left = 0;
+		let right = array.length - 1;
+		let mid;
+		let index = -1;
 
-	sortedIndex(array, value) {
-		//
+		if (array[array.length - 1] === value) {
+			return array.length - 1
+		}
+		while ( index <= Math.floor(Math.log2(array.length))) {
+			mid = Math.floor( (right + left)/2 )
+
+			if (array[mid] == value) {
+				result = mid
+			}
+
+			if (array[mid] < value) {
+				left = mid
+			}
+
+			if (array[mid] >= value) {
+				right = mid
+			}
+			index++
+		}
+		return result 
+		
 	},
 
 	// sortedIndexBy(array, value, iteratee = l.identity) {
 	// 	//
 	// },
+								//    0     2      4
+	sortedIndexOf(array, value) { // [4, 5, 5, 5, 6], 5, ==> 1
+		let result = -1;
+		let left = 0;
+		let right = array.length - 1;
+		let mid;
+		let index = -1;
 
-	// sortedIndexOf(array, value) {
+		if (array[array.length - 1] === value) {
+			return array.length - 1
+		}
+		while ( index <= Math.floor(Math.log2(array.length))) {
+			mid = Math.floor( (right + left)/2 )
 
-	// },
+			if (array[mid] == value) {
+				result = mid
+			}
 
-	// sortedLastIndex(array, value) {
+			if (array[mid] < value) {
+				left = mid
+			}
 
-	// },
+			if (array[mid] >= value) {
+				right = mid
+			}
+			index++
+		}
+		return result + 1
+	},
+
+	sortedLastIndex(array, value) {
+		let result = -1;
+		let left = 0;
+		let right = array.length - 1;
+		let mid;
+		let index = -1;
+
+		if (array[array.length - 1] === value) {
+			return array.length - 1
+		}
+		while ( index <= Math.floor(Math.log2(array.length))) {
+			mid = Math.floor( (right + left)/2 )
+
+			if (array[mid] == value) {
+				result = mid
+			}
+
+			if (array[mid] <= value) {
+				left = mid
+			}
+
+			if (array[mid] > value) {
+				right = mid
+			}
+			index++
+		}
+		return result + 1
+	},
 
 	// sortedLastIndexBy(array, value, iteratee = l.identity) {
 	// 	//
 	// },
 
-	// sortedLastIndexOf(array, value) {
+	sortedLastIndexOf(array, value) {
+		let result = -1;
+		let left = 0;
+		let right = array.length - 1;
+		let mid;
+		let index = -1;
 
-	// },
+		if (array[array.length - 1] === value) {
+			return array.length - 1
+		}
+		while ( index <= Math.floor(Math.log2(array.length))) {
+			mid = Math.floor( (right + left)/2 )
 
-	// sortedUniq(array) {
+			if (array[mid] == value) {
+				result = mid
+			}
 
-	// },
+			if (array[mid] <= value) {
+				left = mid
+			}
+
+			if (array[mid] > value) {
+				right = mid
+			}
+			index++
+		}
+		return result
+	},
+
+	sortedUniq(array) {
+		let result = [];
+
+		array.forEach(elem => {
+			if (!result.includes(elem)) {
+				result.push(elem)
+			}
+		})
+		return result
+	},
 
 	// sortedUniqBy(array, iteratee) {
 
@@ -483,9 +601,9 @@ const l = {
 
 	// },
 
-	// unzip(array) {
+	unzip(array) {
 
-	// },
+	},
 
 	// unzipWith(array, iteratee = l.identity ) {
 	// 	//
@@ -504,9 +622,25 @@ const l = {
 		return result
 	},
 
-	// xor(arrays) {
+	xor(...arrays) { // ([1, 2, 3, 4, 5], [3, 4, 5, 6, 7]) => [1, 2, 6, 7]   
+		let result = [];
+		
+		function filterArr(A,B) {
+			let result = [];
+			for (let elem of A) {
+				if (!B.includes(elem)) {
+					result.push(elem)
+				}
+			}
+			return result
+		}
 
-	// },
+		if (arrays.length <= 2) {
+			result.push(...filterArr(arrays[0],arrays[1]), ...filterArr(arrays[1],arrays[0]))
+		} 
+		
+		return result
+	},
 
 	// xorBy(arrays, iteratee = l.identity) {
 	// 	//
@@ -516,11 +650,27 @@ const l = {
 
 	// },
 
-	// zip(...arrays) {
-	// 	let result = [];
+	zip(...arrays) {
+		let result = [];
+		let length = 0;
+
+		for (let elem of arrays) {
+			if (length <= elem.length) {
+				length = elem.length
+			}
+		}
 		
-	// 	return result
-	// },
+		for (let i = 0; i < length; i++) {
+			let arr = [];
+
+			for (let item of arrays) {
+				arr.push(item[i])
+			}
+			result.push(arr)
+		}
+
+		return result
+	},
 
 	// zipObject(props=[], values=[]) {
 
@@ -536,5 +686,3 @@ const l = {
 
 };
 
-console.log(l.takeRight([1, 2, 3], 5) )
-// => [2, 1])
