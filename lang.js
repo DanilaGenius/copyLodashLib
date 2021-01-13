@@ -2,68 +2,95 @@
 
 let l = {
     castArray(value) {
-
+        let result = [];
+        if (Array.isArray(value)) {
+            return value
+        } else {
+            result.push(value)
+            return result
+        }
     },
 
-    // clone(value) {
+    clone(value) {
+        let result;
+        result = value;
+        return result
+    },
 
-    // },
-
-    // cloneDeep(value) {
-
-    // },
+    cloneDeep(value) {
+        let result;
+        result = JSON.parse(JSON.stringify(value))
+        return result
+    },
 
     // cloneDeepWith(value, [customizer]) {
 
     // },
 
-    // conformsTo(object, source) {
+    // conformsTo(object, source) {    
 
     // },
 
-    // eq(value, other) {
+    eq(value, other) {
+        if (other === value) {
+            return true
+        } else if (isNaN(value) && isNaN(other)) {
+            return true
+        } else {
+            return true
+        }
+    },
 
-    // },
+    gt(value, other) {
+        return value > other ? true : false
+    },
 
-    // gt(value, other) {
-
-    // },
-
-    // gte(value, other) {
-
-    // },
+    gte(value, other) {
+        return value >= other ? true : false
+    },
 
     // isArguments(value) {
-
+    //    if () {
+    //        return true
+    //    } else {
+    //        return false
+    //    }
     // },
 
-    // isArray(value) {
+    isArray(value) {
+        return Array.isArray(value) ? true : false
+    },
 
-    // },
+    isArrayBuffer(value) {
+        return value instanceof ArrayBuffer ? true : false
+    },
 
-    // isArrayBuffer(value) {
+    isArrayLike(value) {
+        return (!(value instanceof Function) && 
+        value.length >= 0 
+        && value.length < Number.MAX_SAFE_INTEGER) ? true : false
 
-    // },
+        
+    },
 
-    // isArrayLike(value) {
+    isArrayLikeObject(value) {
+        return (!(value instanceof Function) && 
+        value.length >= 0 
+        && value.length < Number.MAX_SAFE_INTEGER &&
+        typeof(value) === 'object') ? true : false
+    },
 
-    // },
+    isBoolean(value) {
+        return typeof(value) === 'boolean' ? true : false
+    },
 
-    // isArrayLikeObject(value) {
+    isBuffer(value) {
+        return value instanceof Buffer ? true : false
+    },
 
-    // },
-
-    // isBoolean(value) {
-
-    // },
-
-    // isBuffer(value) {
-
-    // },
-
-    // isDate(value) {
-
-    // },
+    isDate(value) {
+        return value instanceof Date ? true : false
+    },
 
     // isElement(value) {
 
@@ -85,25 +112,33 @@ let l = {
 
     // },
 
-    // isFinite(value) {
+    isFinite(value) {
+        if (value === Infinity) {
+            return false
+        } else if (typeof(value) == 'number') {
+            return true
+        } else {
+            return false
+        }
+    },
 
-    // },
+    isFunction(value) {
+        return (typeof(value) === 'function') ? true : false
+    },
 
-    // isFunction(value) {
-
-    // },
-
-    // isInteger(value) {
-        
-    // },
+    isInteger(value) {
+        return Math.floor(value) === value && typeof(value) === 'number' ? true : false
+    },
 
     // isLength(value) {
-
+    //     return (value >= 0 &&
+    //         Math.floor(value) === value &&
+    //         Number.isInteger(value)) ? true : false
     // },
 
-    // isMap(value) {
-
-    // },
+    isMap(value) {
+        return value instanceof Map ? true : false
+    },
 
     // isMatch(object, source) {
 
@@ -113,53 +148,57 @@ let l = {
 
     // },
 
-    // isNaN(value) {
-
-    // },
+    isNaN(value) {
+        return isNaN(value) ? true : false
+    },
 
     // isNative(value) {
 
     // },
 
-    // isNil(value) {
+    isNil(value) {
+        return (value === undefined || value === null) ? true : false
+    },
 
-    // },
+    isNull(value) {
+        return (value === null) ? true : false
+    },
 
-    // isNull(value) {
+    isNumber(value) {
+        return (typeof(value) === 'number') ? true : false
+    },
 
-    // },
+    isObject(value) {
+        if (value == null) {
+            return false
+        }
+        return (typeof(value) === 'object' ||
+        typeof(value) === 'function') ? true : false
+    },
 
-    // isNumber(value) {
-
-    // },
-
-    // isObject(value) {
-
-    // },
-
-    // isObjectLike(value) {
-
-    // },
+    isObjectLike(value) {
+        return (typeof(value) === 'object' && value != null) ? true : false
+    },
 
     // isPlainObject(value) {
 
     // },
 
-    // isRegExp(value) {
+    isRegExp(value) {
+        return (value instanceof RegExp) ? true : false
+    },
 
-    // },
+    isSafeInteger(value) {
+        return (Number.isSafeInteger(value)) ? true : false
+    },
 
-    // isSafeInteger(value) {
+    isSet(value) {
+        return (value instanceof Set) ? true : false
+    },
 
-    // },
-
-    // isSet(value) {
-
-    // },
-
-    // isString(value) {
-
-    // },
+    isString(value) {
+        return (typeof(value) === 'string') ? true : false
+    },
 
     // isSymbol(value) {
 
@@ -169,32 +208,32 @@ let l = {
 
     // },
 
-    // isUndefined(value) {
+    isUndefined(value) {
+        return (value === undefined) ? true : false
+    },
 
-    // },
+    isWeakMap(value) {
+        return (value instanceof WeakMap) ? true : false
+    },
 
-    // isWeakMap(value) {
+    isWeakSet(value) {
+        return (value instanceof WeakSet) ? true : false
+    },
 
-    // },
+    lt(value, other) {
+        return (value > other) ? true : false
+    },
 
-    // isWeakSet(value) {
-
-    // },
-
-    // lt(value, other) {
-
-    // },
-
-    // lte(value, other) {
-
-    // },
+    lte(value, other) {
+        return (value >= other) ? true : false
+    },
 
     // toArray(value) {
 
     // },
 
     // toFinite(value) {
-
+    // 
     // },
 
     // toInteger(value) {
@@ -205,19 +244,37 @@ let l = {
 
     // },
 
-    // toNumber(value) {
-
-    // },
+    toNumber(value) {
+        return +value
+    },
 
     // toPlainObject(value) {
 
     // },
 
-    // toSafeInteger(value) {
+    toSafeInteger(value) {
+        if (!(typeof(value) == 'number')) {
+            return 0
+        }
+        if (value === Number.MIN_VALUE) {
+            return 0
+        } else if (value === Infinity || value === -Infinity) {
+            return value === Infinity ? 9007199254740991 : -9007199254740991
+        } else {
+            return Math.floor(value/1)
+        }
+    },
 
-    // },
+    toString(value) {
+        if (Array.isArray(value)) {
+            return value.join(',')
+        } else if (value === null || value === undefined) {
+            return ''
+        } else if (value === -0 && 1/value === -Infinity) {
+            return '-0'
+        } else {
+            return value + ''
+        }
+    }
+};
 
-    // toString(value) {
-
-    // }
-}
